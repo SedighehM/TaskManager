@@ -1,0 +1,50 @@
+<div class="row text-center">
+  <div class="col-md-1">
+    <button
+      type="button"
+      *ngIf="showCreate"
+      class="btn btn-primary mt-4"
+      (click)="addEvent()"
+    >
+      New
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div class="col-md-9"></div>
+
+  <div *ngIf="showCreate" class="col-md-2">
+    <label for="user">Filtered By User</label>
+    <select
+      #user
+      (change)="Buildevents(user.value)"
+      [(ngModel)]="selectedPerson"
+      id="user"
+      class="form-control form-control-lg"
+    >
+      <option [value]="user.username" *ngFor="let user of users">
+        {{ user.username }}
+      </option>
+    </select>
+  </div>
+</div>
+<br />
+<div [ngSwitch]="view">
+  <mwl-calendar-week-view
+    [eventActionsTemplate]="eventActionsTemplate"
+    (eventClicked)="eventClicked($event)"
+    [refresh]="refresh"
+    [dayStartHour]="8"
+    [dayEndHour]="17"
+    *ngSwitchCase="'week'"
+    [viewDate]="viewDate"
+    [events]="events"
+  >
+  </mwl-calendar-week-view>
+  <div style="margin-top: 10px;" class="text-center">
+    <div class="btn-group">
+      <div class="btn btn-primary" (click)="decrement()">Previous</div>
+      <div class="btn btn-default" (click)="today()">Today</div>
+      <div class="btn btn-primary" (click)="increment()">Next</div>
+    </div>
+  </div>
+</div>

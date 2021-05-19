@@ -1,0 +1,56 @@
+<div class="card">
+  <div class="col-md-12 text-center card-header">
+    <button class="col-md-4 btn btn-primary" (click)="buildTaskForm()">
+      <i class="icon-book-open"></i>
+      Task
+    </button>
+    <button class="col-md-4 btn btn-primary" (click)="buildReminderFrom()">
+      <i class="icon-bell"></i>
+      reminder
+    </button>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="taskForm" (ngSubmit)="save(taskForm.value)">
+      <p class="text-danger" *ngIf="taskForm.invalid && submitted">fill the form</p>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label *ngIf="task" for="start">Start Time</label>
+          <label *ngIf="!task" for="start">Time</label>
+          <input
+            type="datetime-local"
+            formControlName="start"
+            class="form-control"
+            id="start"
+          />
+        </div>
+        <div *ngIf="task" class="form-group col-md-6">
+          <label for="end">End Time</label>
+          <input
+            type="datetime-local"
+            formControlName="end"
+            class="form-control"
+            id="end"
+          />
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="title">Title</label>
+          <input
+            type="text"
+            formControlName="title"
+            class="form-control"
+            id="title"
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="user">Assign To</label>
+          <select formControlName="assignTo" id="user" class="form-control form-control">
+            <option [value]="user.username" *ngFor="let user of users">{{user.username}}</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="text-center btn btn-success">Save</button>
+    </form>
+  </div>
+</div>

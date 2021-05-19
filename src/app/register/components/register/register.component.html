@@ -1,0 +1,53 @@
+<div class="app-body">
+  <main class="main d-flex align-items-center">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 mx-auto">
+          <div class="card-group">
+            <div class="card p-4">
+              <div class="card-header">
+                <h2>Register</h2>
+              </div>
+              <div class="card-body">
+                <form [formGroup]="registerForm" (ngSubmit)="save(registerForm.value)">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="username" placeholder="Username" autocomplete="username" required>
+                  </div>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-link"></i></span>
+                    </div>
+                    <input type="text" class="form-control" formControlName="email" placeholder="Email" autocomplete="email" required>
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password" autocomplete="current-password" required>
+                  </div>
+                  <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"><i class="icon-lock"></i></span>
+                    </div>
+                    <input type="password" class="form-control" placeholder="Repeat Password" autocomplete="repeate-password" required>
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <button type="submit" class="btn btn-block btn-success">Register</button>
+                    </div>
+                    <div class="col-6">
+                      <button type="button" class="btn btn-block btn-success" (click)="backtoLogin()">Back to login</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
