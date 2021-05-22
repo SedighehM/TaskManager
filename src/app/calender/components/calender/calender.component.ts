@@ -112,15 +112,15 @@ export class CalenderComponent implements OnInit {
         }
         if (user === "Admin") {
           e.actions = this.adminActions;
-        } else if (e.done) {
-          e.color = this.eventService.colors.gray;
-          e.actions = [];
         } else {
           e.actions = this.userActions;
         }
-        this.events.push(e);debugger
+        if (e.done) {
+          e.color = this.eventService.colors.gray;
+          e.actions = [];
+        }
+        this.events.push(e);
         this.notificationService.triggerReminder(this.events);
-
       });
       this.refresh.next();
     });

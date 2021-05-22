@@ -54,6 +54,8 @@ import { LoginComponent } from "./register/components/login/login.component";
 import { RegisterComponent } from "./register/components/register/register.component";
 import { RegisterModule } from "./register/register.module";
 import { TaskLogComponent } from './calender/components/task-log/task-log.component';
+import { ConvertDatePipe } from "./views/dashboard/pipes/convert-date.pipe";
+import { ConvertTimePipe } from './containers/pipes/convert-time.pipe';
 
 @NgModule({
   imports: [
@@ -79,7 +81,7 @@ import { TaskLogComponent } from './calender/components/task-log/task-log.compon
     IconSetModule.forRoot(),
     ToastrModule.forRoot(),
   ],
-  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component],
+  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component,ConvertDatePipe, ConvertTimePipe],
   providers: [
     {
       provide: LocationStrategy,

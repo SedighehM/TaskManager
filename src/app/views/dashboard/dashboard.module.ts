@@ -7,7 +7,6 @@ import { ButtonsModule } from 'ngx-bootstrap/buttons';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { CommonModule} from '@angular/common';
-import { ConvertDatePipe } from './pipes/convert-date.pipe';
 
 
 @NgModule({
@@ -19,6 +18,6 @@ import { ConvertDatePipe } from './pipes/convert-date.pipe';
     BsDropdownModule,
     ButtonsModule.forRoot()
   ],
-  declarations: [ DashboardComponent,ConvertDatePipe ]
+  declarations: [ DashboardComponent ]
 })
 export class DashboardModule { }

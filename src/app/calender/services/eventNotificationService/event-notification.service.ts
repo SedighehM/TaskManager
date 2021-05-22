@@ -11,8 +11,10 @@ export class EventNotificationService {
   triggerReminder(tasks) {
     tasks.forEach((task) => {
       debugger;
-      let diffrence = moment(task.end).diff(new Date());
-      if (!this.taskIds.includes(task.id)) {
+      let diffrence = task.end
+        ? moment(task.end).diff(new Date())
+        : moment(task.start).diff(new Date());
+      if (!this.taskIds.includes(task.id) && diffrence > 0) {
         setTimeout(() => this.toast.success(task.title), diffrence);
         this.taskIds.push(task.id);
       }
