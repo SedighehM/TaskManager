@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
       isAdmin: new FormControl(false),
     });
   }
-  save(form) {debugger
+  save(form) {
     this.registerService.registerUser(form).subscribe((response) => {
       this.backtoLogin();
     });

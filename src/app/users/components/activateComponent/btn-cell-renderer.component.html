@@ -1,0 +1,4 @@
+<button *ngIf="!data.active" type="button" class="btn-sm btn-success" (click)="activationUser()">
+  Active
+</button>
+<button *ngIf="data.active" type="button" class="btn-sm btn-danger" (click)="activationUser()">Deactive</button>

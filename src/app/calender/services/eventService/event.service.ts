@@ -34,8 +34,12 @@ export class EventService {
     if (username === "Admin") {
       return this.http.get("//localhost:3000/events");
     } else {
-      return this.http.get("//localhost:3000/events?assignTo=" + username);
+      return this.http.get("//localhost:3000/events?username=" + username);
     }
+  }
+  getAllEvents():Observable<any>{
+    return this.http.get(("//localhost:3000/events"))
+
   }
   editEvent(event, id): Observable<any> {
     return this.http.put("//localhost:3000/events/" + id, event);
@@ -45,7 +49,7 @@ export class EventService {
       start: new Date(newEvent.start),
       end: new Date(newEvent.end),
       title: newEvent.title,
-      assignTo: newEvent.assignTo,
+      username: newEvent.username,
       color: newEvent.end ? this.colors.blue : this.colors.yellow,
       done: newEvent.done,
       logs: newEvent.logs

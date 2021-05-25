@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="col-md-12 text-center card-header">
+    <h3>Done Task</h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="doneForm" (ngSubmit)="save(doneForm.value)">
+      <p class="text-danger" *ngIf="doneForm.invalid && submitted">
+        fill the form
+      </p>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="doneTime">Done Time</label>
+          <input
+            type="datetime-local"
+            formControlName="doneTime"
+            class="form-control"
+            id="doneTime"
+          />
+        </div>
+      </div>
+
+      <button type="submit" class="text-center btn btn-success">Save</button>
+    </form>
+  </div>
+</div>

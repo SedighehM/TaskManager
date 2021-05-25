@@ -45,6 +45,8 @@
     "@coreui/icons": "^2.0.0-rc.0",
     "@coreui/icons-angular": "1.0.0-alpha.3",
     "@ng-bootstrap/ng-bootstrap": "^9.1.1",
+    "ag-grid-angular": "^25.2.0",
+    "ag-grid-community": "^25.2.1",
     "angular-calendar": "^0.28.24",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.4",

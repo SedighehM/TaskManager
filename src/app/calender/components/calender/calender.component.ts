@@ -16,6 +16,7 @@ import * as moment from "moment";
 import { TaskLogComponent } from "../task-log/task-log.component";
 import { RegisterService } from "../../../register/services/register.service";
 import { EventNotificationService } from "../../services/eventNotificationService/event-notification.service";
+import { DoneformComponent } from "../doneform/doneform.component";
 
 @Component({
   selector: "app-calender",
@@ -115,7 +116,7 @@ export class CalenderComponent implements OnInit {
         } else {
           e.actions = this.userActions;
         }
-        if (e.done) {
+        if (e.done && e.done.doneTask) {
           e.color = this.eventService.colors.gray;
           e.actions = [];
         }
@@ -164,7 +165,6 @@ export class CalenderComponent implements OnInit {
     });
     dialogRef.componentInstance.buildForm(event);
     dialogRef.componentInstance.Done.subscribe((data) => {
-      debugger;
       this.eventService.editEvent(data, event.id).subscribe((response) => {
         this.refresh.next(true);
         this.modalService.dismissAll();
@@ -173,9 +173,17 @@ export class CalenderComponent implements OnInit {
     });
   }
   donTask(event) {
-    event.done = true;
-    this.eventService.editEvent(event, event.id).subscribe((response) => {
-      this.Buildevents(this.user);
+    let dialogRef = this.modalService.open(DoneformComponent, {
+      centered: true,
+    });
+    dialogRef.componentInstance.Done.subscribe((data) => {
+      event.done = data;
+
+      this.eventService.editEvent(event, event.id).subscribe((response) => {
+        this.refresh.next(true);
+        this.modalService.dismissAll();
+        this.Buildevents(this.user);
+      });
     });
   }
 }

@@ -11,6 +11,11 @@ export const navItems: INavData[] = [
     url: '/calender',
     icon: 'icon-calendar'
   },
+  {
+    name: 'Users',
+    url: '/users',
+    icon: 'icon-user'
+  },
   // {
   //   title: true,
   //   name: 'Components'

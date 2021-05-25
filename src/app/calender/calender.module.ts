@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { TaskLogComponent } from './components/task-log/task-log.component';
+import { DoneformComponent } from './components/doneform/doneform.component';
 
 
 
@@ -14,7 +15,8 @@ import { TaskLogComponent } from './components/task-log/task-log.component';
   declarations: [
     CalenderComponent,
     CalenderFormComponent,
-    TaskLogComponent
+    TaskLogComponent,
+    DoneformComponent
   ],
   imports: [
     FormsModule,

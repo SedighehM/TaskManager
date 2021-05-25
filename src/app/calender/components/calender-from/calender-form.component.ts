@@ -34,10 +34,13 @@ export class CalenderFormComponent implements OnInit {
         [Validators.required]
       ),
       title: new FormControl(data ? data.title : null, [Validators.required]),
-      assignTo: new FormControl(data ? data.assignTo : null, [
+      username: new FormControl(data ? data.username : null, [
         Validators.required,
       ]),
-      done: new FormControl(false),
+      done: new FormGroup({
+        doneTask: new FormControl(false),
+        doneTime: new FormControl(undefined),
+      }),
       logs: new FormControl(data && data.logs.length >= 0 ? data.logs : []),
     });
   }

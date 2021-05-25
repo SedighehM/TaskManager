@@ -8,7 +8,6 @@ import {
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
-import { PERFECT_SCROLLBAR_CONFIG } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
 import { HttpClientModule } from "@angular/common/http";
 
@@ -40,25 +39,22 @@ import {
   AppSidebarModule,
 } from "@coreui/angular";
 
-// Import routing module
 import { AppRoutingModule } from "./app.routing";
 
-// Import 3rd party components
 import { BsDropdownModule } from "ngx-bootstrap/dropdown";
 import { TabsModule } from "ngx-bootstrap/tabs";
 import { ChartsModule } from "ng2-charts";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
 import { ReactiveFormsModule } from "@angular/forms";
-import { LoginComponent } from "./register/components/login/login.component";
-import { RegisterComponent } from "./register/components/register/register.component";
 import { RegisterModule } from "./register/register.module";
-import { TaskLogComponent } from './calender/components/task-log/task-log.component';
 import { ConvertDatePipe } from "./views/dashboard/pipes/convert-date.pipe";
-import { ConvertTimePipe } from './containers/pipes/convert-time.pipe';
+import { ConvertTimePipe } from "./containers/pipes/convert-time.pipe";
+import { GridModule } from "./ag-grid/ag-grid.module";
 
 @NgModule({
   imports: [
+    GridModule,
     RegisterModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -81,7 +77,14 @@ import { ConvertTimePipe } from './containers/pipes/convert-time.pipe';
     IconSetModule.forRoot(),
     ToastrModule.forRoot(),
   ],
-  declarations: [AppComponent, ...APP_CONTAINERS, P404Component, P500Component,ConvertDatePipe, ConvertTimePipe],
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    P404Component,
+    P500Component,
+    ConvertDatePipe,
+    ConvertTimePipe,
+  ],
   providers: [
     {
       provide: LocationStrategy,
