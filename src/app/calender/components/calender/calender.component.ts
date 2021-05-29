@@ -17,6 +17,7 @@ import { TaskLogComponent } from "../task-log/task-log.component";
 import { RegisterService } from "../../../register/services/register.service";
 import { EventNotificationService } from "../../services/eventNotificationService/event-notification.service";
 import { DoneformComponent } from "../doneform/doneform.component";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-calender",
@@ -28,7 +29,8 @@ export class CalenderComponent implements OnInit {
     private notificationService: EventNotificationService,
     private modalService: NgbModal,
     private eventService: EventService,
-    private registerService: RegisterService
+    private registerService: RegisterService,
+    private router:ActivatedRoute
   ) {}
   view: string = "week";
   public refresh: Subject<any> = new Subject();

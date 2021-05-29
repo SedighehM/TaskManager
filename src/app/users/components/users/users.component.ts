@@ -10,6 +10,7 @@ import { LastDoneTaskComponent } from "../last-done-task/last-done-task.componen
   styleUrls: ["./users.component.scss"],
 })
 export class UsersComponent implements OnInit {
+
   constructor(public tableService: TableService) {}
   columnDefs = [
     { headerName: "UserName", field: "username", minWidth: "300" },

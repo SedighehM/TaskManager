@@ -17,15 +17,14 @@ export class LastDoneTaskComponent implements OnInit, AgRendererComponent {
   refresh(params: ICellRendererParams): boolean {
     throw new Error("Method not implemented.");
   }
-  agInit(params: ICellRendererParams): void {
+  agInit(params: ICellRendererParams): void {debugger
     this.data = params.data;
   }
   afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
     throw new Error("Method not implemented.");
   }
   goToCalender() {
-    this.router.navigateByUrl("/calender/calender");
-  }
+    this.router.navigateByUrl("/calender/calender")  }
 
   ngOnInit(): void {}
 }

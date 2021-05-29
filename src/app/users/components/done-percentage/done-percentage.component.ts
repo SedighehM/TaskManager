@@ -14,17 +14,23 @@ import {
 export class DonePercentageComponent implements OnInit, AgRendererComponent {
   constructor(private router: Router) {}
   data;
+  percentage;
   refresh(params: ICellRendererParams): boolean {
     throw new Error("Method not implemented.");
   }
   agInit(params: ICellRendererParams): void {
     this.data = params.data;
+    if (isNaN(this.data.percentage)) {
+      this.percentage = 0;
+    } else {
+      this.percentage = this.data.percentage;
+    }
   }
   afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
     throw new Error("Method not implemented.");
   }
   goToCalender() {
-    this.router.navigateByUrl("/calender/calender")
+    this.router.navigateByUrl("/calender/calender");
   }
 
   ngOnInit(): void {}

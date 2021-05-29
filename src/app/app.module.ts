@@ -51,9 +51,12 @@ import { RegisterModule } from "./register/register.module";
 import { ConvertDatePipe } from "./views/dashboard/pipes/convert-date.pipe";
 import { ConvertTimePipe } from "./containers/pipes/convert-time.pipe";
 import { GridModule } from "./ag-grid/ag-grid.module";
+import "./BaseArray"
+
 
 @NgModule({
   imports: [
+
     GridModule,
     RegisterModule,
     ReactiveFormsModule,

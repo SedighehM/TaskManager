@@ -41,6 +41,9 @@ export class EventService {
     return this.http.get(("//localhost:3000/events"))
 
   }
+  getEventsById(id):Observable<any>{
+    return this.http.get("//localhost:3000/events/" + id)
+  }
   editEvent(event, id): Observable<any> {
     return this.http.put("//localhost:3000/events/" + id, event);
   }
