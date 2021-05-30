@@ -75,6 +75,9 @@ export class CalenderComponent implements OnInit {
   events: CalendarEvent[] = [];
   ngOnInit(): void {
     this.user = localStorage.getItem("username");
+    if (this.user === "Admin") {
+      this.showCreate = true;
+    }
 
     this.registerService.getUsers().subscribe((response) => {
       this.users = response;
@@ -138,7 +141,6 @@ export class CalenderComponent implements OnInit {
       }
       if (this.user === "Admin") {
         e.actions = this.adminActions;
-        this.showCreate = true;
       } else {
         e.actions = this.userActions;
       }
