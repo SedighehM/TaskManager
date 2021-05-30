@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
-import { EventService } from "../../services/eventService/event.service";
 
 @Component({
   selector: "app-task-log",
@@ -13,7 +12,7 @@ export class TaskLogComponent implements OnInit {
   logs = [];
   hours=[1,2,3,4,5,6,7,8,9]
 
-  constructor(private eventService: EventService) {}
+  constructor() {}
 
   ngOnInit(): void {
     this.logForm = new FormGroup({

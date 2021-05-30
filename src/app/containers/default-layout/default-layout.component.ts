@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
 import * as moment from "moment";
 import { EventService } from "../../calender/services/eventService/event.service";
 import { navItems } from "../../_nav";
@@ -10,7 +11,7 @@ import { navItems } from "../../_nav";
 export class DefaultLayoutComponent implements OnInit {
   user;
   events;
-  constructor(private eventService: EventService) {
+  constructor(private eventService: EventService, private router: Router) {
     this.user = localStorage.getItem("username");
   }
   ngOnInit() {
@@ -18,7 +19,7 @@ export class DefaultLayoutComponent implements OnInit {
       this.events = response.filter((item) => {
         return moment(item.start).isSame(moment(), "day");
       });
-      console.log(this.events)
+      console.log(this.events);
     });
   }
   public sidebarMinimized = false;
@@ -26,5 +27,9 @@ export class DefaultLayoutComponent implements OnInit {
 
   toggleMinimize(e) {
     this.sidebarMinimized = e;
+  }
+  logOut() {
+    localStorage.removeItem("username");
+    this.router.navigateByUrl("/login");
   }
 }

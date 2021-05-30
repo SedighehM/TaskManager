@@ -63,6 +63,9 @@
       </div>
     </li>
   </ul>
+  <button (click)="logOut()" type="button" class="btn btn-danger">
+    LOG OUT
+  </button>
 </app-header>
 <div class="app-body">
   <app-sidebar
@@ -124,7 +127,6 @@
               <i class="icon-calendar"></i> 
               {{ event.start | convertTime }}</small
             >
-
           </div>
         </div>
       </tab>

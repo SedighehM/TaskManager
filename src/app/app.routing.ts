@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
+import { CanActivateCalenderGuardService } from './gaurdServices/calenderGuard/can-activate-guard.service';
+import { CanActivateUsersGuardService } from './gaurdServices/usersGaurd/can-activate-guard.service';
 import { LoginComponent } from './register/components/login/login.component';
 import { RegisterComponent } from './register/components/register/register.component';
 
@@ -53,11 +55,14 @@ export const routes: Routes = [
     children: [
       {
         path: 'users',
-        loadChildren: () => import('./users/users.module').then(m => m.UsersModule)
+        loadChildren: () => import('./users/users.module').then(m => m.UsersModule),
+        canActivate:[CanActivateUsersGuardService],
+        data:{expectedRole:"Admin"}
       },
       {
         path: 'calender',
-        loadChildren: () => import('./calender/calender.module').then(m => m.CalenderModule)
+        loadChildren: () => import('./calender/calender.module').then(m => m.CalenderModule),
+        canActivate:[CanActivateCalenderGuardService]
       },
       {
         path: 'base',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { AgRendererComponent } from "ag-grid-angular";
 import {
   IAfterGuiAttachedParams,
@@ -12,19 +12,21 @@ import {
   styleUrls: ["./last-done-task.component.scss"],
 })
 export class LastDoneTaskComponent implements OnInit, AgRendererComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router,private activeRoute:ActivatedRoute) {}
   data;
   refresh(params: ICellRendererParams): boolean {
     throw new Error("Method not implemented.");
   }
-  agInit(params: ICellRendererParams): void {debugger
+  agInit(params: ICellRendererParams): void {
     this.data = params.data;
   }
   afterGuiAttached?(params?: IAfterGuiAttachedParams): void {
     throw new Error("Method not implemented.");
   }
-  goToCalender() {
-    this.router.navigateByUrl("/calender/calender")  }
+  goToTask(id) {
+    this.router.navigate(["/calender/task",id]);
+
+  }
 
   ngOnInit(): void {}
 }

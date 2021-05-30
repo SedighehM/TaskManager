@@ -1,1 +1,1 @@
-<p (click)="goToCalender()" *ngIf="data.lastDoneTask">{{data.lastDoneTask.title}}</p>
+<p (click)="goToTask(data.lastDoneTask.id)" *ngIf="data.lastDoneTask">{{data.lastDoneTask.title}}</p>

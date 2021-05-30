@@ -39,7 +39,6 @@ export class EventService {
   }
   getAllEvents():Observable<any>{
     return this.http.get(("//localhost:3000/events"))
-
   }
   getEventsById(id):Observable<any>{
     return this.http.get("//localhost:3000/events/" + id)

@@ -8,16 +8,19 @@ const routes: Routes = [
     children: [
       {
         path: "",
-        redirectTo: "calender",
-      },
-      {
-        path: "calender",
         component: CalenderComponent,
         data: {
           title: "calender",
         },
       },
     ],
+  },
+  {
+    path: "task/:id",
+    component: CalenderComponent,
+    data: {
+      title: "calender",
+    },
   },
 ];
 

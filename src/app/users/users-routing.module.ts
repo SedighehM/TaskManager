@@ -11,7 +11,7 @@ const routes: Routes = [
         redirectTo: "users",
       },
       {
-        path: "users",
+        path: "",
         component: UsersComponent,
         data: {
           title: "users",

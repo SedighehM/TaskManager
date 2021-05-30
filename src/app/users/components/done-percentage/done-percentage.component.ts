@@ -30,7 +30,7 @@ export class DonePercentageComponent implements OnInit, AgRendererComponent {
     throw new Error("Method not implemented.");
   }
   goToCalender() {
-    this.router.navigateByUrl("/calender/calender");
+    this.router.navigateByUrl("/calender");
   }
 
   ngOnInit(): void {}

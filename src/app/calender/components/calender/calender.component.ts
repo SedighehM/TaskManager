@@ -30,7 +30,7 @@ export class CalenderComponent implements OnInit {
     private modalService: NgbModal,
     private eventService: EventService,
     private registerService: RegisterService,
-    private router:ActivatedRoute
+    private ActiveRoute: ActivatedRoute
   ) {}
   view: string = "week";
   public refresh: Subject<any> = new Subject();
@@ -38,6 +38,7 @@ export class CalenderComponent implements OnInit {
   users = [];
   selectedPerson;
   user;
+  eventId;
 
   viewDate: Date = new Date();
   @Input() eventActionsTemplate: TemplateRef<any>;
@@ -74,12 +75,13 @@ export class CalenderComponent implements OnInit {
   events: CalendarEvent[] = [];
   ngOnInit(): void {
     this.user = localStorage.getItem("username");
-    this.Buildevents(this.user);
-    if (this.user === "Admin") this.showCreate = true;
+
     this.registerService.getUsers().subscribe((response) => {
       this.users = response;
       this.users.splice(0, 1);
     });
+
+    this.buildEvents();
   }
 
   increment(): void {
@@ -104,27 +106,48 @@ export class CalenderComponent implements OnInit {
   today(): void {
     this.viewDate = new Date();
   }
-  Buildevents(user) {
+  buildEvents() {
+    this.eventId = null;
+    this.events = [];
+    this.ActiveRoute.params.subscribe((param) => {
+      this.eventId = param["id"];
+      if (this.eventId) {
+        this.eventService.getEventsById(this.eventId).subscribe((event) => {
+          this.viewDate = moment(event.start).toDate();
+          this.initEvents([event]);
+        });
+      } else {
+        this.eventService.getEvents(this.user).subscribe((events) => {
+          this.initEvents(events);
+        });
+      }
+    });
+  }
+  filterEvents(user) {
     this.events = [];
     this.eventService.getEvents(user).subscribe((events) => {
-      events.forEach((e) => {
-        e.start = moment(e.start).toDate();
-        e.end = moment(e.end).toDate();
-        if (moment(e.end).diff(moment(new Date()), "days") < 1) {
-          e.color = this.eventService.colors.red;
-        }
-        if (user === "Admin") {
-          e.actions = this.adminActions;
-        } else {
-          e.actions = this.userActions;
-        }
-        if (e.done && e.done.doneTask) {
-          e.color = this.eventService.colors.gray;
-          e.actions = [];
-        }
-        this.events.push(e);
-        this.notificationService.triggerReminder(this.events);
-      });
+      this.initEvents(events);
+    });
+  }
+  initEvents(events) {
+    events.forEach((e) => {
+      e.start = moment(e.start).toDate();
+      e.end = moment(e.end).toDate();
+      if (moment(e.end).diff(moment(new Date()), "days") < 1) {
+        e.color = this.eventService.colors.red;
+      }
+      if (this.user === "Admin") {
+        e.actions = this.adminActions;
+        this.showCreate = true;
+      } else {
+        e.actions = this.userActions;
+      }
+      if (e.done && e.done.doneTask) {
+        e.color = this.eventService.colors.gray;
+        e.actions = [];
+      }
+      this.events.push(e);
+      this.notificationService.triggerReminder(this.events);
       this.refresh.next();
     });
   }
@@ -139,7 +162,7 @@ export class CalenderComponent implements OnInit {
       this.eventService.editEvent(event, event.id).subscribe((response) => {
         this.refresh.next(true);
         this.modalService.dismissAll();
-        this.Buildevents(this.user);
+        this.buildEvents();
       });
     });
   }
@@ -152,13 +175,13 @@ export class CalenderComponent implements OnInit {
       this.eventService.insertEvent(data).subscribe((response) => {
         this.refresh.next(true);
         this.modalService.dismissAll();
-        this.Buildevents(this.user);
+        this.buildEvents();
       });
     });
   }
   removeEvent(id) {
     this.eventService.deleteEvent(id).subscribe((response) => {
-      this.Buildevents(this.user);
+      this.buildEvents();
     });
   }
   updateEvent(event) {
@@ -170,7 +193,7 @@ export class CalenderComponent implements OnInit {
       this.eventService.editEvent(data, event.id).subscribe((response) => {
         this.refresh.next(true);
         this.modalService.dismissAll();
-        this.Buildevents(this.user);
+        this.buildEvents();
       });
     });
   }
@@ -184,7 +207,7 @@ export class CalenderComponent implements OnInit {
       this.eventService.editEvent(event, event.id).subscribe((response) => {
         this.refresh.next(true);
         this.modalService.dismissAll();
-        this.Buildevents(this.user);
+        this.buildEvents();
       });
     });
   }

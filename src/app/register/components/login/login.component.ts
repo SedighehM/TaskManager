@@ -39,8 +39,6 @@ export class LoginComponent implements OnInit {
       } else {
         this.showErrorMessage = true;
       }
-
-      console.log(response[0]);
     });
   }
 }
