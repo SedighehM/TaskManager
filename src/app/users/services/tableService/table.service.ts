@@ -30,13 +30,7 @@ export class TableService {
       this.users = response;
       this.eventsService.getAllEvents().subscribe((response) => {
         this.tasks = response;
-        var newData = this.users.map((item, row) => {
-          const found = this.tasks.filter(
-            (element) => item.username === element.username
-          );
-          const task = { tasks: Object.values(found) };
-          return { ...item, ...task };
-        });
+        var newData = this.users.joinArray(this.tasks,"username")
         newData.percentage();
         newData.forEach((item) => {
           if (item.tasks.length > 0) {
