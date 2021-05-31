@@ -8,7 +8,6 @@ import { Observable } from "rxjs";
 })
 export class EventService {
   constructor(
-    private eventNotification: EventNotificationService,
     private http: HttpClient
   ) {}
   colors: any = {

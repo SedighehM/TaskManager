@@ -37,7 +37,6 @@ export class TableService {
             item.lastDoneTask = this.closestDoneTask(item.tasks);
           }
         });
-        console.log(newData);
         this.taskUsers.next(newData);
       });
     });
