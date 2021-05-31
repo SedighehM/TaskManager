@@ -7,9 +7,7 @@ import { Observable } from "rxjs";
   providedIn: "root",
 })
 export class EventService {
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor(private http: HttpClient) {}
   colors: any = {
     red: {
       primary: "#ad2121",
@@ -36,24 +34,24 @@ export class EventService {
       return this.http.get("//localhost:3000/events?username=" + username);
     }
   }
-  getAllEvents():Observable<any>{
-    return this.http.get(("//localhost:3000/events"))
+  getAllEvents(): Observable<any> {
+    return this.http.get("//localhost:3000/events");
   }
-  getEventsById(id):Observable<any>{
-    return this.http.get("//localhost:3000/events/" + id)
+  getEventsById(id): Observable<any> {
+    return this.http.get("//localhost:3000/events/" + id);
   }
   editEvent(event, id): Observable<any> {
     return this.http.put("//localhost:3000/events/" + id, event);
   }
   insertEvent(newEvent): Observable<any> {
     let event = {
-      start: new Date(newEvent.start),
-      end: new Date(newEvent.end),
+      start: newEvent.start,
+      end: newEvent.end,
       title: newEvent.title,
       username: newEvent.username,
       color: newEvent.end ? this.colors.blue : this.colors.yellow,
       done: newEvent.done,
-      logs: newEvent.logs
+      logs: newEvent.logs,
     };
     return this.http.post("//localhost:3000/events", event);
   }

@@ -26,11 +26,11 @@ export class CalenderFormComponent implements OnInit {
   buildForm(data = undefined) {
     this.taskForm = new FormGroup({
       start: new FormControl(
-        data ? moment(data.start).format("yyyy-MM-DDThh:mm") : null,
+        data ? moment(data.start).format("yyyy-MM-DDTHH:mm") : null,
         [Validators.required]
       ),
       end: new FormControl(
-        data ? moment(data.end).format("yyyy-MM-DDThh:mm") : null,
+        data ? moment(data.end).format("yyyy-MM-DDTHH:mm") : null,
         [Validators.required]
       ),
       title: new FormControl(data ? data.title : null, [Validators.required]),
