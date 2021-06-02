@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import * as moment from "moment";
+import { BufferService } from "../../bufferService/buffer.service";
 import { EventService } from "../../calender/services/eventService/event.service";
 import { navItems } from "../../_nav";
 
@@ -11,7 +12,11 @@ import { navItems } from "../../_nav";
 export class DefaultLayoutComponent implements OnInit {
   user;
   events;
-  constructor(private eventService: EventService, private router: Router) {
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    public bufferService: BufferService
+  ) {
     this.user = localStorage.getItem("username");
   }
   ngOnInit() {
@@ -31,5 +36,12 @@ export class DefaultLayoutComponent implements OnInit {
   logOut() {
     localStorage.removeItem("username");
     this.router.navigateByUrl("/login");
+  }
+  saveTask(data,i) {
+    let submit = data.operator;
+    submit(data.object).subscribe((response) => {
+      data.done();
+      this.bufferService.remove(i)
+    });
   }
 }

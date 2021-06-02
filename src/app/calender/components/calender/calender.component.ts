@@ -18,6 +18,7 @@ import { RegisterService } from "../../../register/services/register.service";
 import { EventNotificationService } from "../../services/eventNotificationService/event-notification.service";
 import { DoneformComponent } from "../doneform/doneform.component";
 import { ActivatedRoute, Router } from "@angular/router";
+import { BufferService } from "../../../bufferService/buffer.service";
 
 @Component({
   selector: "app-calender",
@@ -28,9 +29,10 @@ export class CalenderComponent implements OnInit {
   constructor(
     private notificationService: EventNotificationService,
     private modalService: NgbModal,
-    private eventService: EventService,
+    public eventService: EventService,
     private registerService: RegisterService,
-    private ActiveRoute: ActivatedRoute
+    private ActiveRoute: ActivatedRoute,
+    private bufferService: BufferService
   ) {}
   view: string = "week";
   public refresh: Subject<any> = new Subject();
@@ -173,6 +175,19 @@ export class CalenderComponent implements OnInit {
       centered: true,
     });
     dialogRef.componentInstance.buildForm(null);
+    dialogRef.componentInstance.draftDone.subscribe((data) => {
+      debugger;
+      let config = {
+        operator: (data) => {
+          return this.eventService.insertEvent(data);
+        },
+        object: data,
+        done:  () => {
+          this.modalService.dismissAll();
+          this.buildEvents();        },
+      };
+      this.bufferService.add(config);
+    });
     dialogRef.componentInstance.Done.subscribe((data) => {
       this.eventService.insertEvent(data).subscribe((response) => {
         this.refresh.next(true);

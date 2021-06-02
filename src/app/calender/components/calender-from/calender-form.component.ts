@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
+import { BufferService } from "../../../bufferService/buffer.service";
 import { RegisterService } from "../../../register/services/register.service";
 
 @Component({
@@ -10,9 +11,14 @@ import { RegisterService } from "../../../register/services/register.service";
 })
 export class CalenderFormComponent implements OnInit {
   @Output() Done = new EventEmitter();
+  @Output() draftDone = new EventEmitter();
+
   users = [];
 
-  constructor(private registerService: RegisterService) {}
+  constructor(
+    private registerService: RegisterService,
+    private bufferService: BufferService
+  ) {}
   taskForm: FormGroup;
   task: boolean = true;
   submitted = false;
@@ -56,5 +62,9 @@ export class CalenderFormComponent implements OnInit {
   save(form) {
     this.submitted = true;
     if (this.taskForm.valid) this.Done.emit(form);
+  }
+  draft() {
+    this.submitted = true;
+    if (this.taskForm.valid) this.draftDone.emit(this.taskForm.value);
   }
 }
