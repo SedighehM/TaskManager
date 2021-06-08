@@ -7,9 +7,11 @@ import { ButtonsModule } from "ngx-bootstrap/buttons";
 import { DashboardComponent } from "./dashboard.component";
 import { DashboardRoutingModule } from "./dashboard-routing.module";
 import { CommonModule } from "@angular/common";
+import { TranslateModule } from "@ngx-translate/core";
 
 @NgModule({
   imports: [
+    TranslateModule,
     CommonModule,
     FormsModule,
     DashboardRoutingModule,
@@ -18,5 +20,6 @@ import { CommonModule } from "@angular/common";
     ButtonsModule.forRoot(),
   ],
   declarations: [DashboardComponent],
+  exports: [TranslateModule],
 })
 export class DashboardModule {}

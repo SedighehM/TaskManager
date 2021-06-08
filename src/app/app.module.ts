@@ -50,15 +50,20 @@ import { RegisterModule } from "./register/register.module";
 import { ConvertDatePipe } from "./views/dashboard/pipes/convert-date.pipe";
 import { ConvertTimePipe } from "./containers/pipes/convert-time.pipe";
 import { GridModule } from "./ag-grid/ag-grid.module";
-import "./BaseArray"
-import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import "./BaseArray";
+import {
+  HttpClient,
+  HttpClientModule,
+  HTTP_INTERCEPTORS,
+} from "@angular/common/http";
 import { HttpConfigInterceptor } from "./interceptor/httpconfig.interceptor";
-import { BaseFormComponent } from './base-form/base-form.component';
+import { BaseFormComponent } from "./base-form/base-form.component";
 
+import { TranslateLoader, TranslateModule } from "@ngx-translate/core";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 
 @NgModule({
   imports: [
-
     GridModule,
     RegisterModule,
     ReactiveFormsModule,
@@ -81,6 +86,13 @@ import { BaseFormComponent } from './base-form/base-form.component';
     IconModule,
     IconSetModule.forRoot(),
     ToastrModule.forRoot(),
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient],
+      },
+    }),
   ],
   declarations: [
     AppComponent,
@@ -96,9 +108,16 @@ import { BaseFormComponent } from './base-form/base-form.component';
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpConfigInterceptor,
+      multi: true,
+    },
     IconSetService,
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}

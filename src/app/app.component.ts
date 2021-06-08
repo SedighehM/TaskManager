@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 
 import { IconSetService } from '@coreui/icons-angular';
 import { freeSet } from '@coreui/icons';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   // tslint:disable-next-line
@@ -13,8 +14,11 @@ import { freeSet } from '@coreui/icons';
 export class AppComponent implements OnInit {
   constructor(
     private router: Router,
-    public iconSet: IconSetService
+    public iconSet: IconSetService,
+    public translate: TranslateService
   ) {
+    translate.setDefaultLang('en');
+
     // iconSet singleton
     iconSet.icons = { ...freeSet };
   }
