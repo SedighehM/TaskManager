@@ -137,6 +137,18 @@
           class="list-group list-group-accent"
         >
           <div
+            class="
+              list-group-item list-group-item-accent-secondary
+              bg-light
+              text-center
+              font-weight-bold
+              text-muted text-uppercase
+              small
+            "
+          >
+            Drafts
+          </div>
+          <div
             *ngFor="let item of data; let i = index"
             class="
               list-group-item
@@ -144,13 +156,26 @@
               list-group-item-divider
             "
           >
+            <div class="avatar float-right">
+              <i (click)="saveTask(item.data, i)" style="color: green;" class="fa fa-check fa-lg ml-4"></i>
+            </div>
             <div class="float-right">
-              <button (click)="saveTask(item.data,i)" type="button" class="btn btn-primary btn-sm">
-               Save Task
-              </button>
+              <i (click)="removeTask(i)" style="color: red;" class="fa fa-trash fa-lg"></i>
             </div>
             <div>
-              <strong>{{ item.data.object.title }}</strong>
+              <strong>{{ item.data.header }}</strong>
+            </div>
+            <div>
+              <small class="text-muted mr-3">
+                {{ item.data.object.title }}</small
+              >
+            </div>
+            <div style="color: red;">
+              <small>
+                {{ item.data.error.status }}:{{
+                  item.data.error.message
+                }}</small
+              >
             </div>
           </div>
         </div>

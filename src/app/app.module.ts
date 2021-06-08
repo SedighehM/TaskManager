@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { PerfectScrollbarModule } from "ngx-perfect-scrollbar";
 import { PerfectScrollbarConfigInterface } from "ngx-perfect-scrollbar";
-import { HttpClientModule } from "@angular/common/http";
 
 import {
   IconModule,
@@ -52,6 +51,9 @@ import { ConvertDatePipe } from "./views/dashboard/pipes/convert-date.pipe";
 import { ConvertTimePipe } from "./containers/pipes/convert-time.pipe";
 import { GridModule } from "./ag-grid/ag-grid.module";
 import "./BaseArray"
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpConfigInterceptor } from "./interceptor/httpconfig.interceptor";
+import { BaseFormComponent } from './base-form/base-form.component';
 
 
 @NgModule({
@@ -87,12 +89,14 @@ import "./BaseArray"
     P500Component,
     ConvertDatePipe,
     ConvertTimePipe,
+    BaseFormComponent,
   ],
   providers: [
     {
       provide: LocationStrategy,
       useClass: HashLocationStrategy,
     },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true },
     IconSetService,
   ],
   bootstrap: [AppComponent],

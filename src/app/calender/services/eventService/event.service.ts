@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
-import { EventNotificationService } from "../eventNotificationService/event-notification.service";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 @Injectable({
@@ -28,6 +27,7 @@ export class EventService {
   };
 
   getEvents(username): Observable<any> {
+
     if (username === "Admin") {
       return this.http.get("//localhost:3000/events");
     } else {
@@ -41,9 +41,12 @@ export class EventService {
     return this.http.get("//localhost:3000/events/" + id);
   }
   editEvent(event, id): Observable<any> {
-    return this.http.put("//localhost:3000/events/" + id, event);
+    let headers = new HttpHeaders({ type: "editEvent" });
+
+    return this.http.put("//localhost:3000/events/" + id, event,{headers:headers});
   }
   insertEvent(newEvent): Observable<any> {
+    let headers = new HttpHeaders({ type: "insertEvent" });
     let event = {
       start: newEvent.start,
       end: newEvent.end,
@@ -53,7 +56,9 @@ export class EventService {
       done: newEvent.done,
       logs: newEvent.logs,
     };
-    return this.http.post("//localhost:3000/events", event);
+    return this.http.post("//localhost:3000/events", event, {
+      headers: headers,
+    });
   }
   deleteEvent(id): Observable<any> {
     return this.http.delete("//localhost:3000/events/" + id);

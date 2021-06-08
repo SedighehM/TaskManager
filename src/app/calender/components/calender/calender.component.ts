@@ -175,19 +175,6 @@ export class CalenderComponent implements OnInit {
       centered: true,
     });
     dialogRef.componentInstance.buildForm(null);
-    dialogRef.componentInstance.draftDone.subscribe((data) => {
-      debugger;
-      let config = {
-        operator: (data) => {
-          return this.eventService.insertEvent(data);
-        },
-        object: data,
-        done:  () => {
-          this.modalService.dismissAll();
-          this.buildEvents();        },
-      };
-      this.bufferService.add(config);
-    });
     dialogRef.componentInstance.Done.subscribe((data) => {
       this.eventService.insertEvent(data).subscribe((response) => {
         this.refresh.next(true);
@@ -195,6 +182,24 @@ export class CalenderComponent implements OnInit {
         this.buildEvents();
       });
     });
+    dialogRef.componentInstance.createBufferItem = (data) => {
+      debugger;
+      if (data.length > 0) {
+        let config = {
+          operator: (input) => {
+            return this.eventService.insertEvent(input);
+          },
+          object: data[data.length - 1].data.body,
+          header: data[data.length - 1].data.headers.get("type"),
+          done: () => {
+            this.buildEvents();
+          },
+          error:data[0].data.error
+
+        };
+        this.bufferService.add(config);
+      }
+    };
   }
   removeEvent(id) {
     this.eventService.deleteEvent(id).subscribe((response) => {
@@ -213,6 +218,22 @@ export class CalenderComponent implements OnInit {
         this.buildEvents();
       });
     });
+    dialogRef.componentInstance.createBufferItem = (data) => {debugger
+      if (data.length > 0) {
+        let config = {
+          operator: (input) => {
+            return this.eventService.editEvent(input, event.id);
+          },
+          object: data[0].data.body,
+          header: data[0].data.headers.get("type"),
+          done: () => {
+            this.buildEvents();
+          },
+          error:data[0].data.error
+        };
+        this.bufferService.add(config);
+      }
+    };
   }
   donTask(event) {
     let dialogRef = this.modalService.open(DoneformComponent, {

@@ -1,7 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import * as moment from "moment";
 import { BufferService } from "../../bufferService/buffer.service";
+import { CalenderFormComponent } from "../../calender/components/calender-from/calender-form.component";
 import { EventService } from "../../calender/services/eventService/event.service";
 import { navItems } from "../../_nav";
 
@@ -15,7 +17,8 @@ export class DefaultLayoutComponent implements OnInit {
   constructor(
     private eventService: EventService,
     private router: Router,
-    public bufferService: BufferService
+    public bufferService: BufferService,
+    private modalService: NgbModal
   ) {
     this.user = localStorage.getItem("username");
   }
@@ -37,11 +40,14 @@ export class DefaultLayoutComponent implements OnInit {
     localStorage.removeItem("username");
     this.router.navigateByUrl("/login");
   }
-  saveTask(data,i) {
+  saveTask(data, i) {
     let submit = data.operator;
     submit(data.object).subscribe((response) => {
       data.done();
-      this.bufferService.remove(i)
+      this.bufferService.remove(i);
     });
+  }
+  removeTask(i){
+    this.bufferService.remove(i)
   }
 }

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import * as moment from "moment";
-import { BufferService } from "../../../bufferService/buffer.service";
+import { BaseFormComponent } from "../../../base-form/base-form.component";
+import { HandleBufferService } from "../../../handleBuffer/handle-buffer.service";
 import { RegisterService } from "../../../register/services/register.service";
 
 @Component({
@@ -9,7 +10,7 @@ import { RegisterService } from "../../../register/services/register.service";
   templateUrl: "./calender-form.component.html",
   styleUrls: ["./calender-form.component.scss"],
 })
-export class CalenderFormComponent implements OnInit {
+export class CalenderFormComponent extends BaseFormComponent implements OnInit {
   @Output() Done = new EventEmitter();
   @Output() draftDone = new EventEmitter();
 
@@ -17,17 +18,21 @@ export class CalenderFormComponent implements OnInit {
 
   constructor(
     private registerService: RegisterService,
-    private bufferService: BufferService
-  ) {}
+    private error: HandleBufferService
+  ) {
+    super(error);
+  }
   taskForm: FormGroup;
   task: boolean = true;
   submitted = false;
 
   ngOnInit(): void {
+    super.ngOnInit()
     this.registerService.getUsers().subscribe((response) => {
       this.users = response;
       this.users.splice(0, 1);
     });
+
   }
   buildForm(data = undefined) {
     this.taskForm = new FormGroup({
