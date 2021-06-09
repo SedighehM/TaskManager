@@ -31,6 +31,7 @@ export class TableService {
       this.eventsService.getAllEvents().subscribe((response) => {
         this.tasks = response;
         var newData = this.users.joinArray(this.tasks,"username")
+        console.log(newData)
         newData.percentage();
         newData.forEach((item) => {
           if (item.tasks.length > 0) {

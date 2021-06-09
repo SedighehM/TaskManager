@@ -241,6 +241,7 @@ export class CalenderComponent implements OnInit {
     });
     dialogRef.componentInstance.Done.subscribe((data) => {
       event.done = data;
+      event.done.score=moment(event.end).diff(moment(data.doneTime),'hours')
 
       this.eventService.editEvent(event, event.id).subscribe((response) => {
         this.refresh.next(true);

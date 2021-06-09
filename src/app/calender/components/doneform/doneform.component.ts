@@ -17,6 +17,7 @@ export class DoneformComponent implements OnInit {
     this.doneForm = new FormGroup({
       doneTime: new FormControl(null),
       doneTask: new FormControl(true),
+      score: new FormControl(null),
     });
   }
   save(form) {
